@@ -1,7 +1,11 @@
-import { contextBridge } from 'electron'
+import { contextBridge, ipcRenderer } from 'electron'
 import { electronAPI } from '@electron-toolkit/preload'
 
-const api = {}
+const api = {
+  getPartners: () => ipcRenderer.invoke('getPartners'),
+  createPartner: (partner) => ipcRenderer.invoke('createPartner', partner),
+  updatePartner: (partner) => ipcRenderer.invoke('updatePartner', partner)
+}
 
 if (process.contextIsolated) {
   try {
